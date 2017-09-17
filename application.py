@@ -18,7 +18,7 @@ def showCatalog():
     categories = session.query(Category).order_by(asc(Category.name))
     return render_template('catalog.html', categories=categories)
 
-def 
+
 
 if __name__ == '__main__':
     app.debug = True

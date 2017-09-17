@@ -12,6 +12,15 @@ category = Category(name = "Living Room")
 session.add(category)
 session.commit()
 
+item1 = CatalogItem(name="Sofa", description="A piece of furniture for seating"
+                    "three or more people in the form of a bench", category=category)
+
+item2 = CatalogItem(name="Coffee Table", description="A style of long, low table which is designed to be placed in front of a sofa",
+                    category=category)
+
+session.add(item1, item2)
+session.commit()
+
 category = Category(name = "Dining Room")
 session.add(category)
 session.commit()
