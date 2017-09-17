@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Category, CatalogItem
+from models import Base, Category, CatalogItem
 
 # Connect to database and create database session
 engine = create_engine('sqlite:///itemcatalog.db')
