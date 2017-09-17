@@ -1,7 +1,7 @@
-from flask import Flask
+from flask import Flask, url_for, render_template
 app = Flask(__name__)
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from models import Base, Category, CatalogItem
 
