@@ -6,7 +6,11 @@
 
 <div class="items">
 
-  <h1>Latest Items</h1>
+  <h1>{{ list_title }}</h1>
+
+  {% if not items %}
+    <p>There are no items in this category</p>
+  {% endif %}
 
   {% for item in items %}
 

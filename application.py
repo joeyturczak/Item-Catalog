@@ -5,6 +5,11 @@ from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
 from models import Base, Category, CatalogItem
 
+#import sys
+#import codecs
+#sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+#sys.stderr = codecs.getwriter('utf8')(sys.stderr)
+
 # Connect to database and create database session
 engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
@@ -17,11 +22,15 @@ session = DBSession()
 def showCatalog():
     categories = session.query(Category).order_by(asc(Category.name))
     items = session.query(CatalogItem).order_by(desc(CatalogItem.created_date)).limit(10)
-    return render_template('catalog.html', categories=categories, items=items)
+    list_title = "Latest Items"
+    return render_template('catalog.html', categories=categories, items=items, list_title=list_title)
 
 @app.route('/catalog/<string:category_name>')
 def showCategory(category_name):
-    return "Category page"
+    categories = session.query(Category).order_by(asc(Category.name))
+    items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name))
+    list_title = "%s Items" % category_name
+    return render_template('catalog.html', categories=categories, items=items, list_title=list_title)
 
 @app.route('/catalog/<string:category_name>/<int:catalog_item_id>')
 def showItem(category_name, catalog_item_id):
