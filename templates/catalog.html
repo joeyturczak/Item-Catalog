@@ -6,7 +6,7 @@
 
 <div class="items">
 
-  <h1>{{ list_title }}</h1>
+  <h2>{{ list_title }}</h2>
 
   {% if not items %}
     <p>There are no items in this category</p>
@@ -14,7 +14,7 @@
 
   {% for item in items %}
 
-    <a href="{{url_for('showItem', category_name=item.category_name, catalog_item_id=item.id)}}">
+    <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
       <p>{{ item.name }}</p>
     </a>
 

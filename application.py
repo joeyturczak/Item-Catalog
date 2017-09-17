@@ -32,9 +32,10 @@ def showCategory(category_name):
     list_title = "%s Items" % category_name
     return render_template('catalog.html', categories=categories, items=items, list_title=list_title)
 
-@app.route('/catalog/<string:category_name>/<int:catalog_item_id>')
-def showItem(category_name, catalog_item_id):
-    return "Item page"
+@app.route('/catalog/<string:category_name>/<string:item_name>')
+def showItem(category_name, item_name):
+    item = session.query(CatalogItem).filter_by(name=item_name).one()
+    return render_template('item.html', item=item)
 
 if __name__ == '__main__':
     app.debug = True
