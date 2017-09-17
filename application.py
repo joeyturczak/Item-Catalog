@@ -1,7 +1,7 @@
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, redirect
 app = Flask(__name__)
 
-from sqlalchemy import create_engine, asc
+from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
 from models import Base, Category, CatalogItem
 
@@ -16,9 +16,16 @@ session = DBSession()
 @app.route('/catalog/')
 def showCatalog():
     categories = session.query(Category).order_by(asc(Category.name))
-    return render_template('catalog.html', categories=categories)
+    items = session.query(CatalogItem).order_by(desc(CatalogItem.created_date))
+    return render_template('catalog.html', categories=categories, items=items)
 
+@app.route('/catalog/<string:category_name>')
+def showCategory(category_name):
+    return "Category page"
 
+@app.route('/catalog/<string:category_name>/<int:catalog_item_id>')
+def showItem(category_name, catalog_item_id):
+    return "Item page"
 
 if __name__ == '__main__':
     app.debug = True

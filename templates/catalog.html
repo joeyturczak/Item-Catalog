@@ -4,4 +4,18 @@
 
 {% include "categories.html" %}
 
+<div class="items">
+
+  <h1>Latest Items</h1>
+
+  {% for item in items %}
+
+    <a href="{{url_for('showItem', category_name=item.category_name, catalog_item_id=item.id)}}">
+      <p>{{ item.name }}</p>
+    </a>
+
+  {% endfor %}
+
+</div>
+
 {% endblock %}

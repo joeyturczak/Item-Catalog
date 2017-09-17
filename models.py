@@ -28,7 +28,7 @@ class CatalogItem(Base):
     name = Column(String(80), nullable = False)
     description = Column(String(250))
     created_date = Column(DateTime(timezone=True), default=func.now())
-    category_id = Column(Integer, ForeignKey('category.id'))
+    category_name = Column(String(80), ForeignKey('category.name'))
     category = relationship(Category)
 
     @property
