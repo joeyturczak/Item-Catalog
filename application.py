@@ -20,6 +20,7 @@ def showCatalog():
     list_title = "Latest Items"
     return render_template('catalog.html', categories=categories, items=items, list_title=list_title)
 
+# Show category page
 @app.route('/catalog/<string:category_name>')
 def showCategory(category_name):
     categories = session.query(Category).order_by(asc(Category.name))
@@ -32,6 +33,7 @@ def showItem(category_name, item_name):
     item = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
     return render_template('item.html', item=item)
 
+# Create a new catalog item
 @app.route('/catalog/new', methods=['GET', 'POST'])
 def newItem():
     if request.method == 'POST':
@@ -43,6 +45,7 @@ def newItem():
         categories = session.query(Category).order_by(asc(Category.name))
         return render_template('new_item.html', categories=categories)
 
+# Edit a catalog item
 @app.route('/catalog/<string:category_name>/<string:item_name>/edit', methods=['GET', 'POST'])
 def editItem(category_name, item_name):
     itemToEdit = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
@@ -58,6 +61,7 @@ def editItem(category_name, item_name):
         categories = session.query(Category).order_by(asc(Category.name))
         return render_template('edit_item.html', item=itemToEdit, categories=categories)
 
+# Delete a catalog item
 @app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
 def deleteItem(category_name, item_name):
     itemToDelete = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()

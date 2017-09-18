@@ -19,7 +19,10 @@
       {% endfor %}
     </select>
   </div>
-  <p><input type="submit" value="Create"></p>
+  <p>
+    <input type="submit" value="Create">
+    <a href="{{url_for('showCatalog')}}">Cancel</a>
+  </p>
 </form>
 
 {% endblock %}
