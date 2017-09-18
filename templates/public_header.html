@@ -1,8 +1,14 @@
-<a href="{{url_for('showCatalog')}}">
-  <h1>Item Catalog</h1>
-</a>
-{% if login %}
-  <a href="{{url_for('gdisconnect')}}">Logout</a>
-{% else %}
-  <a href="{{url_for('showLogin')}}">Login</a>
-{% endif %}
+<header class="mdl-layout__header">
+  <div class="mdl-layout__header-row">
+    <a href="{{url_for('showCatalog')}}">
+      <span class="mdl-layout-title">Item Catalog</span>
+    </a>
+    <div class="mdl-layout-spacer">
+    </div>
+    {% if login %}
+      <a href="{{url_for('gdisconnect')}}">Logout</a>
+    {% else %}
+      <a href="{{url_for('showLogin')}}">Login</a>
+    {% endif %}
+  </div>
+</header>
