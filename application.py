@@ -205,8 +205,11 @@ def showCategory(category_name):
 @app.route('/catalog/<string:category_name>/<string:item_name>')
 def showItem(category_name, item_name):
     item = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
+    creator = getUserInfo(item.user_id)
     if 'username' not in login_session:
-        return render_template('public_item.html', item=item)
+        return render_template('public_item.html', item=item, login=False)
+    elif creator.id != login_session['user_id']:
+        return render_template('public_item.html', item=item, login=True)
     else:
         return render_template('item.html', item=item)
 
@@ -216,7 +219,7 @@ def newItem():
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
-        newItem = CatalogItem(name=request.form['name'], description=request.form['description'], category_name=request.form['category'])
+        newItem = CatalogItem(user_id=login_session['user_id'], name=request.form['name'], description=request.form['description'], category_name=request.form['category'])
         session.add(newItem)
         session.commit()
         return redirect(url_for('showCatalog'))
