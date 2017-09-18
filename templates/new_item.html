@@ -3,5 +3,23 @@
 {% include "header.html" %}
 
 <h2>New Item</h2>
+<form action="{{url_for('newItem')}}" method="post">
+  <div>
+    <p><label for="name">Name:</label></p>
+    <input type="text" size="30" name="name" placeholder="New Item Name">
+  </div>
+  <div>
+    <p><label for="description">Description:</label></p>
+    <textarea name="description" rows="6" cols="80" placeholder="Enter a description"></textarea>
+  </div>
+  <div>
+    <select name="category">
+      {% for category in categories %}
+        <option value="{{category.name}}">{{category.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <p><input type="submit" value="Create"></p>
+</form>
 
 {% endblock %}
