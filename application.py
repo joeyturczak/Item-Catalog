@@ -58,9 +58,16 @@ def editItem(category_name, item_name):
         categories = session.query(Category).order_by(asc(Category.name))
         return render_template('edit_item.html', item=itemToEdit, categories=categories)
 
-@app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
-def deleteItem():
-    return "Delete Item"
+@app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
+def deleteItem(category_name, item_name):
+    itemToDelete = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
+    if request.method == 'POST':
+        session.delete(itemToDelete)
+        session.commit()
+        return redirect(url_for('showCategory', category_name=category_name))
+    else:
+        categories = session.query(Category).order_by(asc(Category.name))
+        return render_template('delete_item.html', item=itemToDelete, categories=categories)
 
 if __name__ == '__main__':
     app.debug = True
