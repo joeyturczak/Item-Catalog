@@ -11,6 +11,7 @@ class User(Base):
 
     name = Column(String(80), nullable = False)
     id = Column(Integer, primary_key = True)
+    email = Column(String(80))
 
 class Category(Base):
 
@@ -18,7 +19,6 @@ class Category(Base):
 
     id = Column(Integer, primary_key = True)
     name = Column(String(80), nullable = False)
-    email = Column(String(80))
 
     @property
     def serialize(self):
