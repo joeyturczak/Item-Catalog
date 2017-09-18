@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, redirect, request
+from flask import Flask, url_for, render_template, redirect, request, jsonify
 app = Flask(__name__)
 
 from sqlalchemy import create_engine, asc, desc, and_
@@ -10,6 +10,22 @@ engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
+
+# JSON APIs to view the catalog information
+@app.route('/catalog/api/catalog/categories/JSON')
+def categoriesJSON():
+    categories = session.query(Category).all()
+    return jsonify(categories=[c.serialize for c in categories])
+
+@app.route('/catalog/api/catalog/items/JSON')
+def itemsJSON():
+    items = session.query(CatalogItem).all()
+    return jsonify(items=[i.serialize for i in items])
+
+@app.route('/catalog/api/catalog/<string:category_name>/items/JSON')
+def catItemsJSON(category_name):
+    items = session.query(CatalogItem).filter_by(category_name=category_name).all()
+    return jsonify(items=[i.serialize for i in items])
 
 # Show main catalog page
 @app.route('/')
