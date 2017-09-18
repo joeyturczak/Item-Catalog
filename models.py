@@ -6,12 +6,19 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'user'
+
+    name = Column(String(80), nullable = False)
+    id = Column(Integer, primary_key = True)
+
 class Category(Base):
 
     __tablename__ = 'category'
 
     id = Column(Integer, primary_key = True)
     name = Column(String(80), nullable = False)
+    email = Column(String(80))
 
     @property
     def serialize(self):
@@ -30,6 +37,8 @@ class CatalogItem(Base):
     created_date = Column(DateTime(timezone=True), default=func.now())
     category_name = Column(String(80), ForeignKey('category.name'))
     category = relationship(Category)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
