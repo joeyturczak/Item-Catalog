@@ -1,16 +1,45 @@
+body,
+html {
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+}
+
 a {
   text-decoration: none;
 }
 
-.item-catalog .mdl-card__title {
-  background-color: #82B1FF;
-  height: 60px;
+:root {
+  --mdc-theme-primary: #ff9800;
+  --mdc-theme-primary-light: #ffb74d;
+  --mdc-theme-primary-dark: #f57c00;
+  --mdc-theme-secondary: #448aff;
 }
 
-.item-catalog .mdl-card__supporting-text {
-  height: 60px;
+.item-catalog {
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.item-catalog .mdl-card__actions {
-  height: 50px;
+.mdc-card__primary {
+  height: 48px;
+}
+
+.mdc-card__primary .mdc-card__title, .mdc-card__subtitle {
+  color: #fff;
+}
+
+.mdc-card .mdc-card__actions {
+  justify-content: space-between;
+}
+
+.mdc-card .mdc-card__actions .edit-button {
+  margin-left: 12px;
+}
+
+.mdc-card .mdc-card__actions .delete-button {
+  margin-right: 12px;
 }

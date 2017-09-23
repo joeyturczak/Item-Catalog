@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="../static/default.css">
+  </head>
+  <body class="mdc-typography">
+    <header class="mdc-toolbar mdc-toolbar--fixed mdc-theme-primary">
+      <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+          <span class="mdc-toolbar__title">Item Catalog</span>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+          <!-- Login button -->
+          {% if public %}
+            <a href="{{url_for('showLogin')}}">Login</a>
+          {% else %}
+            <a href="{{url_for('gdisconnect')}}">Logout</a>
+          {% endif %}
+        </section>
+      </div>
+    </header>
+    <div class="item-catalog mdc-toolbar-fixed-adjust">
+      <nav class="mdc-permanent-drawer">
+        <div class="mdc-list-group">
+          <nav class="mdc-list">
+            {% if list_title == "Latest" %}
+              <a href="{{url_for('showCatalog')}}" class="mdc-list-item mdc-permanent-drawer--selected">
+            {% else %}
+              <a href="{{url_for('showCatalog')}}" class="mdc-list-item">
+            {% endif %}
+              <span>Latest</span>
+            </a>
+            {% for category in categories %}
+              {% if list_title == category.name %}
+                <a href="{{url_for('showCategory', category_name=category.name)}}" class="mdc-list-item mdc-permanent-drawer--selected">
+              {% else %}
+                <a href="{{url_for('showCategory', category_name=category.name)}}" class="mdc-list-item">
+              {% endif %}
+                <span>{{ category.name }}</span>
+              </a>
+            {% endfor %}
+          </nav>
+        </div>
+      </nav>
+      <main class="mdc-permanent-drawer__content mdc-theme--primary">
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <h3 class="mdc-typography--display3 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h3>
+            {% if not items %}
+              <p>There are no items in this category</p>
+            {% endif %}
+
+            {% for item in items %}
+              <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <div class="mdc-card">
+                  <section class="mdc-card__primary mdc-theme--secondary-bg">
+                    <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
+                      <h3 class="mdc-card__title mdc-card__title--large">{{ item.name }}</h3>
+                    </a>
+                    <h4 class="mdc-card__subtitle">{{ item.category_name }}</h4>
+                  </section>
+                  <!-- <section class="mdc-card__supporting-text">
+                    {{ item.description }}
+                  </section> -->
+                  <section class="mdc-card__actions">
+                    <a class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg edit-button">
+                      Edit
+                    </a>
+                    <a class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg delete-button">
+                      Delete
+                    </a>
+                  </section>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script>window.mdc.autoInit();</script>
+  </body>
+</html>
