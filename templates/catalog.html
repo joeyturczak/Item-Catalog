@@ -6,29 +6,39 @@
   {% include "header.html" %}
 {% endif %}
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--2-col">
-    {% include "categories.html" %}
-  </div>
+<div class="mdl-layout__content">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col">
+      <h3>Categories</h3>
 
-  <div class="mdl-cell mdl-cell--8-col items">
+      {% for category in categories %}
 
-    <a href="{{url_for('newItem')}}">Add Item</a>
+        <a href="{{url_for('showCategory', category_name=category.name)}}">
+          <p>{{ category.name }}</p>
+        </a>
 
-    <h2>{{ list_title }}</h2>
+      {% endfor %}
+    </div>
 
-    {% if not items %}
-      <p>There are no items in this category</p>
-    {% endif %}
+    <div class="mdl-cell mdl-cell--10-col items">
 
-    {% for item in items %}
+      <a href="{{url_for('newItem')}}">Add Item</a>
 
-      <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
-        <p>{{ item.name }}</p>
-      </a>
+      <h3>{{ list_title }}</h3>
 
-    {% endfor %}
+      {% if not items %}
+        <p>There are no items in this category</p>
+      {% endif %}
 
+      {% for item in items %}
+
+        <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
+          <p>{{ item.name }}</p>
+        </a>
+
+      {% endfor %}
+
+    </div>
   </div>
 </div>
 
