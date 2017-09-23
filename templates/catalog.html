@@ -22,8 +22,6 @@
 
     <div class="mdl-cell mdl-cell--10-col items">
 
-      <a href="{{url_for('newItem')}}">Add Item</a>
-
       <h3>{{ list_title }}</h3>
 
       {% if not items %}
@@ -39,6 +37,10 @@
       {% endfor %}
 
     </div>
+    {% if not public %}
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="location.href='{{url_for('newItem')}}'">
+        <i class="material-icons">add</i>
+    {% endif %}
   </div>
 </div>
 
