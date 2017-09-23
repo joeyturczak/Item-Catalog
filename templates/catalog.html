@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-blue.min.css">
+    <link rel="stylesheet" href="../static/default.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body class="item-catalog mdl-base">
@@ -16,8 +17,7 @@
             <span class="mdl-layout-title">Item Catalog</span>
           </a>
           <!-- Spacer -->
-          <div class="mdl-layout-spacer">
-          </div>
+          <div class="mdl-layout-spacer"></div>
           <!-- Login button -->
           {% if public %}
             <a href="{{url_for('showLogin')}}">Login</a>
@@ -45,27 +45,38 @@
           {% endfor %}
         </div>
       </header>
+      <!-- Main content -->
       <main class="mdl-layout__content">
         <div class="content mdl-grid">
-          <div class="mdl-cell mdl-cell--12-col items">
-
-            <h3>{{ list_title }}</h3>
+          <h3 class="mdl-cell mdl-cell--12-col">{{ list_title }}</h3>
 
             {% if not items %}
               <p>There are no items in this category</p>
             {% endif %}
 
             {% for item in items %}
-
-              <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
-                <p>{{ item.name }}</p>
-              </a>
+                  <div class="mdl-cell mdl-cell--3-col mdl-card mdl-shadow--2dp">
+                    <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
+                      <div class="mdl-card__title">
+                        <h3 class="mdl-card__title-text">{{ item.name }}</h3>
+                      </div>
+                      <div class="mdl-card__supporting-text">{{ item.description }}</div>
+                      <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                          Edit
+                        </a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                          Delete
+                        </a>
+                      </div>
+                    </a>
+                  </div>
 
             {% endfor %}
 
           </div>
           {% if not public %}
-            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp add" onclick="location.href='{{url_for('newItem')}}'">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp add" onclick="location.href='{{url_for('newItem')}}'" bottom="36px" right="40px" position="absolute">
               <i class="material-icons">add</i>
           {% endif %}
         </div>

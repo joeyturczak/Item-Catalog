@@ -1,0 +1,16 @@
+a {
+  text-decoration: none;
+}
+
+.item-catalog .mdl-card__title {
+  background-color: #64B5F6;
+  height: 60px;
+}
+
+.item-catalog .mdl-card__supporting-text {
+  height: 60px;
+}
+
+.item-catalog .mdl-card__actions {
+  height: 50px;
+}
