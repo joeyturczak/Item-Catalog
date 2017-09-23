@@ -1,3 +1,10 @@
 a {
   text-decoration: none;
 }
+
+.add {
+  position: absolute;
+  right: 40px;
+  bottom: 36px;
+  z-index: 999;
+}

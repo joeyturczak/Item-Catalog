@@ -1,12 +1,20 @@
 {% extends "main.html" %}
 {% block content %}
-{% if public %}
-  {% include "public_header.html" %}
-{% else %}
-  {% include "header.html" %}
-{% endif %}
-
-<div class="mdl-layout__content">
+<header class="mdl-layout__header">
+  <div class="mdl-layout__header-row">
+    <a href="{{url_for('showCatalog')}}">
+      <span class="mdl-layout-title">Item Catalog</span>
+    </a>
+    <div class="mdl-layout-spacer">
+    </div>
+    {% if public %}
+      <a href="{{url_for('showLogin')}}">Login</a>
+    {% else %}
+      <a href="{{url_for('gdisconnect')}}">Logout</a>
+    {% endif %}
+  </div>
+</header>
+<main class="mdl-layout__content">
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--2-col">
       <h3>Categories</h3>
@@ -38,10 +46,10 @@
 
     </div>
     {% if not public %}
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="location.href='{{url_for('newItem')}}'">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp add" onclick="location.href='{{url_for('newItem')}}'">
         <i class="material-icons">add</i>
     {% endif %}
   </div>
-</div>
+</main>
 
 {% endblock %}

@@ -187,9 +187,9 @@ def showCatalog():
     items = session.query(CatalogItem).order_by(desc(CatalogItem.created_date)).limit(10)
     list_title = "Latest Items"
     if 'username' not in login_session:
-        return render_template('public_catalog.html', categories=categories, items=items, list_title=list_title)
+        return render_template('catalog.html', categories=categories, items=items, list_title=list_title, public=True)
     else:
-        return render_template('catalog.html', categories=categories, items=items, list_title=list_title)
+        return render_template('catalog.html', categories=categories, items=items, list_title=list_title, public=False)
 
 # Show category page
 @app.route('/catalog/<string:category_name>')
