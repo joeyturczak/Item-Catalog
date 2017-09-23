@@ -182,10 +182,11 @@ def catItemsJSON(category_name):
 # Show main catalog page
 @app.route('/')
 @app.route('/catalog/')
+@app.route('/catalog/latest')
 def showCatalog():
     categories = session.query(Category).order_by(asc(Category.name))
     items = session.query(CatalogItem).order_by(desc(CatalogItem.created_date)).limit(10)
-    list_title = "Latest Items"
+    list_title = "Latest"
     if 'username' not in login_session:
         return render_template('catalog.html', categories=categories, items=items, list_title=list_title, public=True)
     else:
@@ -195,8 +196,8 @@ def showCatalog():
 @app.route('/catalog/<string:category_name>')
 def showCategory(category_name):
     categories = session.query(Category).order_by(asc(Category.name))
-    items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name))
-    list_title = "%s Items" % category_name
+    items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name)).all()
+    list_title = category_name
     if 'username' not in login_session:
         return render_template('catalog.html', categories=categories, items=items, list_title=list_title, public=True)
     else:
