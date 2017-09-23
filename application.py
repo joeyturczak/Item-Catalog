@@ -19,11 +19,11 @@ DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
 # Create anti-forgery state token
-@app.route('/login')
-def showLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
-    login_session['state'] = state
-    return render_template('login.html', STATE=state)
+# @app.route('/login')
+# def showLogin():
+#     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+#     login_session['state'] = state
+#     return render_template('login.html', STATE=state)
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
@@ -163,6 +163,12 @@ def getUserID(email):
     except:
         return None
 
+# Create anti-forgery state token
+def getState():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+    login_session['state'] = state
+    return state;
+
 # JSON APIs to view the catalog information
 @app.route('/catalog/api/catalog/categories/JSON')
 def categoriesJSON():
@@ -188,9 +194,9 @@ def showCatalog():
     items = session.query(CatalogItem).order_by(desc(CatalogItem.created_date)).limit(10)
     list_title = "Latest"
     if 'username' not in login_session:
-        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=True)
+        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=True, STATE=getState())
     else:
-        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=False)
+        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=False, STATE=getState())
 
 # Show category page
 @app.route('/catalog/<string:category_name>')
@@ -199,9 +205,9 @@ def showCategory(category_name):
     items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name)).all()
     list_title = category_name
     if 'username' not in login_session:
-        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=True)
+        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=True, STATE=getState())
     else:
-        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=False)
+        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=False, STATE=getState())
 
 @app.route('/catalog/<string:category_name>/<string:item_name>')
 def showItem(category_name, item_name):

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link rel="stylesheet" href="../static/default.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
   </head>
   <body class="mdc-typography">
     <header class="mdc-toolbar mdc-toolbar--fixed mdc-theme-primary">
@@ -17,9 +19,11 @@
         <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
           <!-- Login button -->
           {% if public %}
-            <a href="{{url_for('showLogin')}}">Login</a>
+            <!-- <a href="{{url_for('showLogin')}}">Login</a> -->
+            {% include "sign_in_button.html" %}
           {% else %}
-            <a href="{{url_for('gdisconnect')}}">Logout</a>
+            <button class="mdc-button" onclick="location.href='{{url_for('gdisconnect')}}'">Logout</button>
+            <!-- <a href="{{url_for('gdisconnect')}}">Logout</a> -->
           {% endif %}
         </section>
       </div>
