@@ -2,26 +2,30 @@
 {% block content %}
 {% include "header.html" %}
 
-{% include "categories.html" %}
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col">
+    {% include "categories.html" %}
+  </div>
 
-<div class="items">
+  <div class="mdl-cell mdl-cell--8-col items">
 
-  <a href="{{url_for('newItem')}}">Add Item</a>
+    <a href="{{url_for('newItem')}}">Add Item</a>
 
-  <h2>{{ list_title }}</h2>
+    <h2>{{ list_title }}</h2>
 
-  {% if not items %}
-    <p>There are no items in this category</p>
-  {% endif %}
+    {% if not items %}
+      <p>There are no items in this category</p>
+    {% endif %}
 
-  {% for item in items %}
+    {% for item in items %}
 
-    <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
-      <p>{{ item.name }}</p>
-    </a>
+      <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
+        <p>{{ item.name }}</p>
+      </a>
 
-  {% endfor %}
+    {% endfor %}
 
+  </div>
 </div>
 
 {% endblock %}
