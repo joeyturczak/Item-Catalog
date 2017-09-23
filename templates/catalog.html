@@ -1,6 +1,10 @@
 {% extends "main.html" %}
 {% block content %}
-{% include "header.html" %}
+{% if public %}
+  {% include "public_header.html" %}
+{% else %}
+  {% include "header.html" %}
+{% endif %}
 
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--2-col">

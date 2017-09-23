@@ -198,9 +198,9 @@ def showCategory(category_name):
     items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name))
     list_title = "%s Items" % category_name
     if 'username' not in login_session:
-        return render_template('public_catalog.html', categories=categories, items=items, list_title=list_title)
+        return render_template('catalog.html', categories=categories, items=items, list_title=list_title, public=True)
     else:
-        return render_template('catalog.html', categories=categories, items=items, list_title=list_title)
+        return render_template('catalog.html', categories=categories, items=items, list_title=list_title, public=False)
 
 @app.route('/catalog/<string:category_name>/<string:item_name>')
 def showItem(category_name, item_name):
