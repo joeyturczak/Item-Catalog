@@ -24,6 +24,12 @@ a {
   box-sizing: border-box;
 }
 
+.app-fab--absolute {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
 .mdc-card__primary {
   height: 48px;
 }
