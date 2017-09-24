@@ -30,6 +30,7 @@
     </header>
     <div class="item-catalog mdc-toolbar-fixed-adjust">
       <nav class="mdc-permanent-drawer">
+        <div class="mdc-permanent-drawer__toolbar-spacer"></div>
         <div class="mdc-list-group">
           <nav class="mdc-list">
             {% if list_title == "Latest" %}
@@ -54,7 +55,7 @@
       <main class="mdc-permanent-drawer__content mdc-theme--primary">
         <div class="mdc-layout-grid">
           <div class="mdc-layout-grid__inner">
-            <h3 class="mdc-typography--display3 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h3>
+            <h2 class="mdc-typography--display2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h2>
             {% if not items %}
               <p>There are no items in this category</p>
             {% endif %}
@@ -64,9 +65,9 @@
                 <div class="mdc-card">
                   <section class="mdc-card__primary mdc-theme--primary-dark-bg">
                     <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
-                      <h3 class="mdc-card__title mdc-card__title--large">{{ item.name }}</h3>
+                      <h3 class="mdc-card__title mdc-card__title--large mdc-typography--title">{{ item.name }}</h3>
                     </a>
-                    <h4 class="mdc-card__subtitle">{{ item.category_name }}</h4>
+                    <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
                   </section>
                   <!-- <section class="mdc-card__supporting-text">
                     {{ item.description }}

@@ -1,3 +1,9 @@
+@media screen and (max-width: 650px) {
+  .mdc-permanent-drawer {
+    width: 140px;
+  }
+}
+
 body,
 html {
   height: 100%;
@@ -30,9 +36,21 @@ a {
   right: 1rem;
 }
 
-.mdc-card__primary {
-  height: 48px;
+.mdc-permanent-drawer__toolbar-spacer {
+  border-bottom: 0;
 }
+
+/*.mdc-layout-grid__cell {
+  min-width: 100px;
+}*/
+
+/*.mdc-card {
+  min-width: 80px;
+}*/
+
+/*.mdc-card__primary {
+  height: 100px;
+}*/
 
 .mdc-card__primary .mdc-card__title, .mdc-card__subtitle {
   color: #fff;
@@ -40,6 +58,7 @@ a {
 
 .mdc-card .mdc-card__actions {
   justify-content: space-between;
+  background-color: #ddd;
 }
 
 .mdc-card .mdc-card__actions .edit-button {
