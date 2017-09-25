@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask, url_for, render_template, redirect, request, jsonify, make_response
 from flask import session as login_session
 from sqlalchemy import create_engine, asc, desc, and_
@@ -18,14 +20,11 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
-# Login function
-@app.route('/login')
-def showLogin():
-    state = getStateToken()
-    return render_template('login.html', STATE=state)
-
+# Source for Google Sign-In from Udacity's Authentication and
+# Authorization course
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """Login with Google Sign-In"""
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -114,7 +113,8 @@ def gconnect():
 # DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/gdisconnect')
 def gdisconnect():
-        # Only disconnect a connected user.
+    """Disconnect from Google Sign-In"""
+    # Only disconnect a connected user.
     access_token = login_session.get('access_token')
     if access_token is None:
         response = make_response(
@@ -143,6 +143,7 @@ def gdisconnect():
 
 # User Helper Functions
 def createUser(login_session):
+    """Create a new user in database"""
     newUser = User(name=login_session['username'], email=login_session['email'])
     session.add(newUser)
     session.commit()
@@ -151,11 +152,13 @@ def createUser(login_session):
 
 
 def getUserInfo(user_id):
+    """Return User information"""
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
 def getUserID(email):
+    """Return User ID"""
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
@@ -164,6 +167,7 @@ def getUserID(email):
 
 # Create anti-forgery state token
 def getStateToken():
+    """Return anti-forgery state token for login"""
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
     login_session['state'] = state
     return state;
@@ -171,16 +175,19 @@ def getStateToken():
 # JSON APIs to view the catalog information
 @app.route('/catalog/api/catalog/categories/JSON')
 def categoriesJSON():
+    """Return all categories in JSON format"""
     categories = session.query(Category).all()
     return jsonify(categories=[c.serialize for c in categories])
 
 @app.route('/catalog/api/catalog/items/JSON')
 def itemsJSON():
+    """Return all items in JSON format"""
     items = session.query(CatalogItem).all()
     return jsonify(items=[i.serialize for i in items])
 
 @app.route('/catalog/api/catalog/<string:category_name>/items/JSON')
 def catItemsJSON(category_name):
+    """Return all items for specific category in JSON format"""
     try:
         items = session.query(CatalogItem).filter_by(category_name=category_name).all()
         return jsonify(items=[i.serialize for i in items])
@@ -192,6 +199,7 @@ def catItemsJSON(category_name):
 @app.route('/catalog/')
 @app.route('/catalog/latest')
 def showCatalog():
+    """Route to main page of catalog"""
     categories = session.query(Category).order_by(asc(Category.name))
     items = session.query(CatalogItem).order_by(desc(CatalogItem.created_date)).limit(10)
     list_title = "Latest"
@@ -203,6 +211,7 @@ def showCatalog():
 # Show category page
 @app.route('/catalog/<string:category_name>')
 def showCategory(category_name):
+    """Route to specific category page"""
     try:
         categories = session.query(Category).order_by(asc(Category.name))
         items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name)).all()
@@ -216,6 +225,7 @@ def showCategory(category_name):
 
 @app.route('/catalog/<string:category_name>/<string:item_name>')
 def showItem(category_name, item_name):
+    """Route to specific item page"""
     try:
         item = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
         creator = getUserInfo(item.user_id)
@@ -231,6 +241,7 @@ def showItem(category_name, item_name):
 # Create a new catalog item
 @app.route('/catalog/new', methods=['GET', 'POST'])
 def newItem():
+    """Route to new item page"""
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
@@ -245,6 +256,7 @@ def newItem():
 # Edit a catalog item
 @app.route('/catalog/<string:category_name>/<string:item_name>/edit', methods=['GET', 'POST'])
 def editItem(category_name, item_name):
+    """Route to edit item page"""
     if 'username' not in login_session:
         return redirect('/login')
     try:
@@ -266,6 +278,7 @@ def editItem(category_name, item_name):
 # Delete a catalog item
 @app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
 def deleteItem(category_name, item_name):
+    """Route to delete item page"""
     if 'username' not in login_session:
         return redirect('/login')
     try:
@@ -282,6 +295,7 @@ def deleteItem(category_name, item_name):
 
 @app.errorhandler(404)
 def pageNotFound(error):
+    """Return error page"""
     return render_template('page_not_found.html'), 404
 
 if __name__ == '__main__':

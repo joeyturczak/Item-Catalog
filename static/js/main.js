@@ -1,3 +1,4 @@
+// Source: Udacity's Authentication and Authorization course
 function signInCallback(authResult) {
   if(authResult['code']) {
     // Hide the sign-in button now that the user is authorized
