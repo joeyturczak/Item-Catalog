@@ -11,7 +11,7 @@
       {% if public %}
         {% include "sign_in_button.html" %}
       {% else %}
-        <button class="mdc-button" onclick="location.href='{{url_for('gdisconnect')}}'">Logout</button>
+        <button class="mdc-button logout-button" onclick="location.href='{{url_for('gdisconnect')}}'">Logout</button>
       {% endif %}
     </section>
   </div>
