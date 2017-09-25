@@ -28,7 +28,7 @@
         <button class="mdc-button">
           <input class="mdc-button" type="submit" value="Edit">
         </button>
-        <button class="mdc-button" onclick="location.href='{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}'">Cancel</button>
+        <button class="mdc-button" type="button" onclick="location.href='{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}'">Cancel</button>
       </div>
     </form>
   </main>
