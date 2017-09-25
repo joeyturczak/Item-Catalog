@@ -1,3 +1,5 @@
+
+
 @media screen and (max-width: 650px) {
   .mdc-permanent-drawer {
     width: 140px;
@@ -14,6 +16,7 @@ html {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 :root {
@@ -23,11 +26,66 @@ a {
   --mdc-theme-secondary: #448aff;
 }
 
+.clearfix::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.left {
+  float: left;
+  margin-right: 8px;
+}
+
+.right {
+  float: right;
+  margin-left: 8px;
+}
+
 .item-catalog {
   display: flex;
   flex: 1 1 auto;
   height: 100%;
   box-sizing: border-box;
+}
+
+.item-description {
+  margin: 0 auto;
+  width: 600px;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #e0e0e0;
+  height: 200px;
+}
+
+.item-description .mdc-layout-grid {
+  background-color: #e0e0e0;
+  max-width: 600px;
+}
+
+.item-description .mdc-fab {
+  margin: 0 4px 0 4px;
+}
+
+.item-form {
+  margin: 0 auto;
+  width: 600px;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #e0e0e0;
+  height: 400px;
+}
+
+.delete-form {
+  height: 200px;
+}
+
+.form-actions {
+  margin-top: 24px;
+}
+
+.mdc-select {
+  background-color: inherit;
 }
 
 .app-fab--absolute {

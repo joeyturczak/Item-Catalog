@@ -1,74 +1,74 @@
 {% extends "main.html" %}
 {% block content %}
   {% include "header.html" %}
-  <div class="item-catalog mdc-toolbar-fixed-adjust">
-    <nav class="mdc-permanent-drawer">
-      <div class="mdc-permanent-drawer__toolbar-spacer"></div>
-      <div class="mdc-list-group">
-        <nav class="mdc-list">
-          {% if list_title == "Latest" %}
-            <a href="{{url_for('showCatalog')}}" class="mdc-list-item mdc-permanent-drawer--selected">
+  <nav class="mdc-permanent-drawer">
+    <div class="mdc-permanent-drawer__toolbar-spacer"></div>
+    <div class="mdc-list-group">
+      <nav class="mdc-list">
+        {% if list_title == "Latest" %}
+          <a href="{{url_for('showCatalog')}}" class="mdc-list-item mdc-permanent-drawer--selected">
+        {% else %}
+          <a href="{{url_for('showCatalog')}}" class="mdc-list-item">
+        {% endif %}
+          <span>Latest</span>
+        </a>
+        {% for category in categories %}
+          {% if list_title == category.name %}
+            <a href="{{url_for('showCategory', category_name=category.name)}}" class="mdc-list-item mdc-permanent-drawer--selected">
           {% else %}
-            <a href="{{url_for('showCatalog')}}" class="mdc-list-item">
+            <a href="{{url_for('showCategory', category_name=category.name)}}" class="mdc-list-item">
           {% endif %}
-            <span>Latest</span>
+            <span>{{ category.name }}</span>
           </a>
-          {% for category in categories %}
-            {% if list_title == category.name %}
-              <a href="{{url_for('showCategory', category_name=category.name)}}" class="mdc-list-item mdc-permanent-drawer--selected">
-            {% else %}
-              <a href="{{url_for('showCategory', category_name=category.name)}}" class="mdc-list-item">
-            {% endif %}
-              <span>{{ category.name }}</span>
-            </a>
-          {% endfor %}
-        </nav>
-      </div>
-    </nav>
-    <main class="mdc-permanent-drawer__content mdc-theme--primary">
-      <div class="mdc-layout-grid">
-        <div class="mdc-layout-grid__inner">
-          <h2 class="mdc-typography--display2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h2>
-          {% if not items %}
-            <p>There are no items in this category</p>
-          {% endif %}
+        {% endfor %}
+      </nav>
+    </div>
+  </nav>
+  <main class="mdc-permanent-drawer__content mdc-theme--primary">
+    <div class="mdc-layout-grid">
+      <div class="mdc-layout-grid__inner">
+        <h2 class="mdc-typography--display2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h2>
+        {% if not items %}
+          <p>There are no items in this category</p>
+        {% endif %}
 
-          {% for item in items %}
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-              <div class="mdc-card">
-                <section class="mdc-card__primary mdc-theme--primary-dark-bg">
-                  <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
-                    <h3 class="mdc-card__title mdc-card__title--large mdc-typography--title">{{ item.name }}</h3>
-                  </a>
-                  <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
-                </section>
-                <!-- <section class="mdc-card__supporting-text">
-                  {{ item.description }}
-                </section> -->
-                <section class="mdc-card__actions">
+        {% for item in items %}
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+            <div class="mdc-card">
+              <section class="mdc-card__primary mdc-theme--primary-dark-bg">
+                <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
+                  <h3 class="mdc-card__title mdc-card__title--large mdc-typography--title">{{ item.name }}</h3>
+                </a>
+                <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
+              </section>
+              <!-- <section class="mdc-card__supporting-text">
+                {{ item.description }}
+              </section> -->
+              <!-- <section class="mdc-card__actions">
+                {% if creator %}
                   <button class="mdc-fab mdc-fab--mini mdc-card__action material-icons" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">
                     <span class="mdc-fab__icon">edit</span>
                   </button>
                   <button class="mdc-fab mdc-fab--mini mdc-card__action material-icons" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">
                     <span class="mdc-fab__icon">delete</span>
                   </button>
-                  <!-- <button class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg edit-button" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">
-                    Edit
-                  </a>
-                  <button class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg delete-button" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">
-                    Delete
-                  </a> -->
-                </section>
-              </div>
+                {% endif %}
+                <!-- <button class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg edit-button" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">
+                  Edit
+                </a>
+                <button class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg delete-button" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">
+                  Delete
+                </a> 
+              </section> -->
             </div>
-          {% endfor %}
-        </div>
+          </div>
+        {% endfor %}
       </div>
-      {% if not public %}
-        <button class="mdc-fab app-fab--absolute material-icons" onclick="location.href='{{url_for('newItem')}}'">
-          <span class="mdc-fab__icon">add</span>
-        </button>
-      {% endif %}
-    </main>
-  </div>
+    </div>
+    {% if not public %}
+      <button class="mdc-fab app-fab--absolute material-icons" onclick="location.href='{{url_for('newItem')}}'">
+        <span class="mdc-fab__icon">add</span>
+      </button>
+    {% endif %}
+  </main>
 {% endblock %}

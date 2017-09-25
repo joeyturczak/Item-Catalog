@@ -213,11 +213,11 @@ def showItem(category_name, item_name):
     item = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
     creator = getUserInfo(item.user_id)
     if 'username' not in login_session:
-        return render_template('public_item.html', item=item, login=False)
+        return render_template('item.html', item=item, public=True)
     elif creator.id != login_session['user_id']:
-        return render_template('public_item.html', item=item, login=True)
+        return render_template('item.html', item=item, public=False, creator=False)
     else:
-        return render_template('item.html', item=item)
+        return render_template('item.html', item=item, public=False, creator=True)
 
 # Create a new catalog item
 @app.route('/catalog/new', methods=['GET', 'POST'])
