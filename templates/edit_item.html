@@ -1,44 +1,29 @@
 {% extends "main.html" %}
 {% block content %}
   {% include "header.html" %}
-  <main class="item-form mdc-elevation--z4">
-
+  <!-- Form for editing items -->
+  <main class="item-container item-form mdc-elevation--z4">
     <h3 class="mdc-typography--title">Edit {{ item.name }}</h3>
     <form action="{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}" method="post">
-      <!-- <div>
-        <p><label for="name">Name:</label></p>
-        <input type="text" size="30" name="name" placeholder="{{ item.name }}">
-      </div> -->
+      <!-- Item name -->
       <label for="name">Name:</label>
       <div class="mdc-textfield">
         <input type="text" name="name" class="mdc-textfield__input" value="{{item.name}}" required minlength=1>
       </div>
-      <!-- <div>
-        <p><label for="description">Description:</label></p>
-        <textarea name="description" rows="6" cols="80" placeholder="{{ item.description }}"></textarea>
-      </div> -->
+      <!-- Item description -->
       <section class="description">
         <label for="description">Description:</label>
         <div class="mdc-textfield mdc-textfield--multiline">
           <textarea class="mdc-textfield__input" name="description" rows="6" cols="80" placeholder="{{item.description}}" required minlength=1></textarea>
         </div>
       </section>
-      <!-- <div>
-        <select name="category">
-          {% for category in categories %}
-            <option value="{{category.name}}">{{category.name}}</option>
-          {% endfor %}
-        </select>
-      </div> -->
+      <!-- Item category -->
       <select name="category" class="mdc-select">
         {% for category in categories %}
           <option value="{{category.name}}">{{category.name}}</option>
         {% endfor %}
       </select>
-      <!-- <p>
-        <input type="submit" value="Edit">
-        <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">Cancel</a>
-      </p> -->
+      <!-- Action buttons -->
       <div class="form-actions">
         <button class="mdc-button">
           <input class="mdc-button" type="submit" value="Edit">
@@ -46,7 +31,5 @@
         <button class="mdc-button" onclick="location.href='{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}'">Cancel</button>
       </div>
     </form>
-
   </main>
-
 {% endblock %}

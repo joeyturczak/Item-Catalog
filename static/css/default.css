@@ -1,10 +1,10 @@
-
-
 @media screen and (max-width: 650px) {
   .mdc-permanent-drawer {
     width: 140px;
   }
 }
+
+/* Global */
 
 body,
 html {
@@ -42,64 +42,13 @@ a {
   margin-left: 8px;
 }
 
-.item-catalog {
-  display: flex;
-  flex: 1 1 auto;
-  height: 100%;
-  box-sizing: border-box;
+/* Header */
+
+.mdc-permanent-drawer__toolbar-spacer {
+  border-bottom: 0;
 }
 
-.item-description {
-  margin: 0 auto;
-  width: 600px;
-  margin-top: 24px;
-  padding: 16px;
-  background-color: #e0e0e0;
-  height: 200px;
-}
-
-.item-description .mdc-layout-grid {
-  background-color: #e0e0e0;
-  max-width: 600px;
-}
-
-.item-description .mdc-fab {
-  margin: 0 4px 0 4px;
-}
-
-.item-form {
-  margin: 0 auto;
-  width: 600px;
-  margin-top: 24px;
-  padding: 16px;
-  background-color: #e0e0e0;
-  height: 400px;
-}
-
-.delete-form {
-  height: 200px;
-}
-
-.not-found {
-  margin: 0 auto;
-  width: 600px;
-  margin-top: 24px;
-  padding: 16px;
-  background-color: #e0e0e0;
-  height: 200px;
-}
-
-.return-link {
-  color: blue;
-}
-
-.form-actions {
-  margin-top: 24px;
-}
-
-.mdc-select {
-  background-color: inherit;
-}
+/* Content */
 
 .app-fab--absolute {
   position: fixed;
@@ -107,35 +56,48 @@ a {
   right: 1rem;
 }
 
-.mdc-permanent-drawer__toolbar-spacer {
-  border-bottom: 0;
+.item-catalog {
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-/*.mdc-layout-grid__cell {
-  min-width: 100px;
-}*/
+.item-container {
+  margin: 0 auto;
+  width: 600px;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #e0e0e0;
+  height: 200px;
+}
 
-/*.mdc-card {
-  min-width: 80px;
-}*/
+.item-container .mdc-layout-grid {
+  background-color: #e0e0e0;
+  max-width: 600px;
+}
 
-/*.mdc-card__primary {
-  height: 100px;
-}*/
+.item-container .mdc-fab {
+  margin: 0 4px 0 4px;
+}
 
 .mdc-card__primary .mdc-card__title, .mdc-card__subtitle {
   color: #fff;
 }
 
-.mdc-card .mdc-card__actions {
-  justify-content: space-between;
-  background-color: #ddd;
+/* Forms */
+
+.form-actions {
+  margin-top: 24px;
 }
 
-.mdc-card .mdc-card__actions .edit-button {
-  margin-left: 12px;
+.item-form {
+  height: 400px;
+}
+.mdc-select {
+  background-color: inherit;
 }
 
-.mdc-card .mdc-card__actions .delete-button {
-  margin-right: 12px;
+.return-link {
+  color: blue;
 }

@@ -1,9 +1,11 @@
 {% extends "main.html" %}
 {% block content %}
   {% include "header.html" %}
+  <!-- Permanent navigation drawer -->
   <nav class="mdc-permanent-drawer">
     <div class="mdc-permanent-drawer__toolbar-spacer"></div>
     <div class="mdc-list-group">
+      <!-- Display categories from database -->
       <nav class="mdc-list">
         {% if list_title == "Latest" %}
           <a href="{{url_for('showCatalog')}}" class="mdc-list-item mdc-permanent-drawer--selected">
@@ -24,6 +26,7 @@
       </nav>
     </div>
   </nav>
+  <!-- Main content -->
   <main class="mdc-permanent-drawer__content mdc-theme--primary">
     <div class="mdc-layout-grid">
       <div class="mdc-layout-grid__inner">
@@ -31,7 +34,7 @@
         {% if not items %}
           <h3 class="mdc-typography--body2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">There are no items in this category</h3>
         {% endif %}
-
+        <!-- Display items from database -->
         {% for item in items %}
           <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
             <div class="mdc-card">
@@ -41,30 +44,12 @@
                 </a>
                 <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
               </section>
-              <!-- <section class="mdc-card__supporting-text">
-                {{ item.description }}
-              </section> -->
-              <!-- <section class="mdc-card__actions">
-                {% if creator %}
-                  <button class="mdc-fab mdc-fab--mini mdc-card__action material-icons" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">
-                    <span class="mdc-fab__icon">edit</span>
-                  </button>
-                  <button class="mdc-fab mdc-fab--mini mdc-card__action material-icons" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">
-                    <span class="mdc-fab__icon">delete</span>
-                  </button>
-                {% endif %}
-                <!-- <button class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg edit-button" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">
-                  Edit
-                </a>
-                <button class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg delete-button" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">
-                  Delete
-                </a>
-              </section> -->
             </div>
           </div>
         {% endfor %}
       </div>
     </div>
+    <!-- New item button -->
     {% if not public %}
       <button class="mdc-fab app-fab--absolute material-icons" onclick="location.href='{{url_for('newItem')}}'">
         <span class="mdc-fab__icon">add</span>

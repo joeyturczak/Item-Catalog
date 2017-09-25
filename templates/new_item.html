@@ -1,39 +1,29 @@
 {% extends "main.html" %}
 {% block content %}
   {% include "header.html" %}
-  <main class="item-form mdc-elevation--z4">
+  <!-- Form for creating items -->
+  <main class="item-container item-form mdc-elevation--z4">
     <h3 class="mdc-typography--title">New Item</h3>
     <form action="{{url_for('newItem')}}" method="post">
-      <!-- <div class="mdc-form-field"> -->
+      <!-- Item name -->
       <label for="name">Name:</label>
       <div class="mdc-textfield">
         <input type="text" name="name" class="mdc-textfield__input" placeholder="New Item Name" required minlength=1>
       </div>
-        <!-- <p><label for="name">Name:</label></p> -->
-        <!-- <input type="text" size="30" name="name" placeholder="New Item Name"> -->
-      <!-- </div> -->
+      <!-- Item description -->
       <section class="description">
         <label for="description">Description:</label>
         <div class="mdc-textfield mdc-textfield--multiline">
           <textarea class="mdc-textfield__input" name="description" rows="6" cols="80" placeholder="Enter a description" required minlength=1></textarea>
         </div>
       </section>
+      <!-- Item category -->
       <select name="category" class="mdc-select">
         {% for category in categories %}
           <option value="{{category.name}}">{{category.name}}</option>
         {% endfor %}
       </select>
-      <!-- <div>
-        <p><label for="description">Description:</label></p>
-        <textarea name="description" rows="6" cols="80" placeholder="Enter a description"></textarea>
-      </div> -->
-      <!-- <div>
-        <select name="category">
-          {% for category in categories %}
-            <option value="{{category.name}}">{{category.name}}</option>
-          {% endfor %}
-        </select>
-      </div> -->
+      <!-- Action buttons -->
       <div class="form-actions">
         <button class="mdc-button">
           <input class="mdc-button" type="submit" value="Create">
@@ -42,5 +32,4 @@
       </div>
     </form>
   </main>
-
 {% endblock %}

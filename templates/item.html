@@ -1,28 +1,18 @@
 {% extends "main.html" %}
 {% block content %}
   {% include "header.html" %}
-  <main class="item-description mdc-elevation--z4">
-    <!-- <div class="mdc-layout-grid mdc-elevation--z4">
-      <div class="mdc-layout-grid__inner"> -->
-        <!-- <article class="item mdc-layout-grid__cell mdc-layout-grid__cell--span-12"> -->
-        <article class="item left">
-          <h3 class="mdc-typography--title">{{ item.name }}</h3>
-          <p class="mdc-typography--body1">{{ item.description }}</p>
-        </article>
-        <!-- <section class="item-actions mdc-layout-grid__cell mdc-layout-grid__cell--span-3"> -->
-        {% if creator %}
-          <section class="item-actions right">
-            <button class="mdc-fab mdc-fab--mini material-icons" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">edit</button>
-            <button class="mdc-fab mdc-fab--mini material-icons" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">delete</button>
-          </section>
-        {% endif %}
-      </div>
-
-    </div>
-    <!-- <section class="item-actions">
-      <button class="mdc-fab mdc-fab--mini material-icons" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">edit</button>
-      <button class="mdc-fab mdc-fab--mini material-icons" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">delete</button>
-    </section> -->
+  <!-- Item information page -->
+  <main class="item-container mdc-elevation--z4">
+    <article class="item left">
+      <h3 class="mdc-typography--title">{{ item.name }}</h3>
+      <p class="mdc-typography--body1">{{ item.description }}</p>
+    </article>
+    <!-- Only allow the creator of this item to edit or delete it -->
+    {% if creator %}
+      <section class="item-actions right">
+        <button class="mdc-fab mdc-fab--mini material-icons" onclick="location.href='{{url_for('editItem', category_name=item.category_name, item_name=item.name)}}'">edit</button>
+        <button class="mdc-fab mdc-fab--mini material-icons" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">delete</button>
+      </section>
+    {% endif %}
   </main>
-
 {% endblock %}
