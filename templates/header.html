@@ -1,10 +1,15 @@
-<header class="mdl-layout__header">
-  <div class="mdl-layout__header-row">
-    <a href="{{url_for('showCatalog')}}">
-      <span class="mdl-layout-title">Item Catalog</span>
-    </a>
-    <div class="mdl-layout-spacer">
-    </div>
-    <a href="{{url_for('gdisconnect')}}">Logout</a>
+<header class="mdc-toolbar mdc-toolbar--fixed mdc-theme-primary">
+  <div class="mdc-toolbar__row">
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+      <span class="mdc-toolbar__title">Item Catalog</span>
+    </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+      <!-- Login button -->
+      {% if public %}
+        {% include "sign_in_button.html" %}
+      {% else %}
+        <button class="mdc-button" onclick="location.href='{{url_for('gdisconnect')}}'">Logout</button>
+      {% endif %}
+    </section>
   </div>
 </header>

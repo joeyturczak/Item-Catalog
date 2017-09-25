@@ -1,4 +1,4 @@
-<div id="signinButton">
+<div id="signinButton" data-state="{{STATE}}">
   <span class="g-signin"
     data-scope="openid email"
     data-clientid="292067192637-unoc9otdt6q0bsk7aan2qbfehvpf3uo3.apps.googleusercontent.com"
@@ -10,7 +10,7 @@
   </span>
 </div>
 
-<script>
+<!-- <script>
   function signInCallback(authResult) {
     if(authResult['code']) {
       // Hide the sign-in button now that the user is authorized
@@ -20,7 +20,7 @@
       //page and then redirect back to the main catalog page
       $.ajax({
         type: 'POST',
-        url: '/gconnect?state={{STATE}}',
+        url: '/gconnect?state=' + $('#signinButton').data("state"),
         processData: false,
         contentType: 'application/octect-stream; charset=utf-8',
         data: authResult['code'],
@@ -29,7 +29,7 @@
             $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
             setTimeout(function() {
               window.location.href = "/catalog";
-            }, 2000);
+            }, 0);
           } else if(authResult['error']) {
             console.log('There was an error: ' + authResult['error']);
           }
@@ -39,4 +39,4 @@
       $('#result').html('Failed to make a server-side call. Check your configuration and console.');
     }
   }
-</script>
+</script> -->
