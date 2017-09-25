@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+{% block content %}
+  <main class="not-found mdc-elevation--z4">
+
+    <h3 class="mdc-typography--title">404 Error Page Not Found</h3>
+    <p class="mdc-typography-body2">Click
+      <a class="return-link" href="{{url_for('showCatalog')}}">
+        here
+      </a> to return to the main page.
+    </p>
+
+{% endblock %}

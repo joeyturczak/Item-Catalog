@@ -29,7 +29,7 @@
       <div class="mdc-layout-grid__inner">
         <h2 class="mdc-typography--display2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h2>
         {% if not items %}
-          <p>There are no items in this category</p>
+          <h3 class="mdc-typography--body2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">There are no items in this category</h3>
         {% endif %}
 
         {% for item in items %}
@@ -58,7 +58,7 @@
                 </a>
                 <button class="mdc-button mdc-button--compact mdc-card__action mdc-theme--primary-bg delete-button" onclick="location.href='{{url_for('deleteItem', category_name=item.category_name, item_name=item.name)}}'">
                   Delete
-                </a> 
+                </a>
               </section> -->
             </div>
           </div>

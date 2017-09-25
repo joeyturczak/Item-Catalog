@@ -181,8 +181,11 @@ def itemsJSON():
 
 @app.route('/catalog/api/catalog/<string:category_name>/items/JSON')
 def catItemsJSON(category_name):
-    items = session.query(CatalogItem).filter_by(category_name=category_name).all()
-    return jsonify(items=[i.serialize for i in items])
+    try:
+        items = session.query(CatalogItem).filter_by(category_name=category_name).all()
+        return jsonify(items=[i.serialize for i in items])
+    except:
+        return render_template('page_not_found.html')
 
 # Show main catalog page
 @app.route('/')
@@ -200,24 +203,30 @@ def showCatalog():
 # Show category page
 @app.route('/catalog/<string:category_name>')
 def showCategory(category_name):
-    categories = session.query(Category).order_by(asc(Category.name))
-    items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name)).all()
-    list_title = category_name
-    if 'username' not in login_session:
-        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=True, STATE=getStateToken())
-    else:
-        return render_template('index.html', categories=categories, items=items, list_title=list_title, public=False, STATE=getStateToken())
+    try:
+        categories = session.query(Category).order_by(asc(Category.name))
+        items = session.query(CatalogItem).filter_by(category_name=category_name).order_by(asc(CatalogItem.name)).all()
+        list_title = category_name
+        if 'username' not in login_session:
+            return render_template('index.html', categories=categories, items=items, list_title=list_title, public=True, STATE=getStateToken())
+        else:
+            return render_template('index.html', categories=categories, items=items, list_title=list_title, public=False, STATE=getStateToken())
+    except:
+        return render_template('page_not_found.html')
 
 @app.route('/catalog/<string:category_name>/<string:item_name>')
 def showItem(category_name, item_name):
-    item = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
-    creator = getUserInfo(item.user_id)
-    if 'username' not in login_session:
-        return render_template('item.html', item=item, public=True)
-    elif creator.id != login_session['user_id']:
-        return render_template('item.html', item=item, public=False, creator=False)
-    else:
-        return render_template('item.html', item=item, public=False, creator=True)
+    try:
+        item = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
+        creator = getUserInfo(item.user_id)
+        if 'username' not in login_session:
+            return render_template('item.html', item=item, public=True)
+        elif creator.id != login_session['user_id']:
+            return render_template('item.html', item=item, public=False, creator=False)
+        else:
+            return render_template('item.html', item=item, public=False, creator=True)
+    except:
+        return render_template('page_not_found.html')
 
 # Create a new catalog item
 @app.route('/catalog/new', methods=['GET', 'POST'])
@@ -238,32 +247,42 @@ def newItem():
 def editItem(category_name, item_name):
     if 'username' not in login_session:
         return redirect('/login')
-    itemToEdit = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
-    if request.method == 'POST':
-        if request.form['name']:
-            itemToEdit.name = request.form['name']
-            itemToEdit.description = request.form['description']
-            itemToEdit.category_name = request.form['category']
-            session.add(itemToEdit)
-            session.commit()
-            return redirect(url_for('showCategory', category_name=category_name))
-    else:
-        categories = session.query(Category).order_by(asc(Category.name))
-        return render_template('edit_item.html', item=itemToEdit, categories=categories)
+    try:
+        itemToEdit = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
+        if request.method == 'POST':
+            if request.form['name']:
+                itemToEdit.name = request.form['name']
+                itemToEdit.description = request.form['description']
+                itemToEdit.category_name = request.form['category']
+                session.add(itemToEdit)
+                session.commit()
+                return redirect(url_for('showCategory', category_name=category_name))
+        else:
+            categories = session.query(Category).order_by(asc(Category.name))
+            return render_template('edit_item.html', item=itemToEdit, categories=categories)
+    except:
+        return render_template('page_not_found.html')
 
 # Delete a catalog item
 @app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
 def deleteItem(category_name, item_name):
     if 'username' not in login_session:
         return redirect('/login')
-    itemToDelete = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
-    if request.method == 'POST':
-        session.delete(itemToDelete)
-        session.commit()
-        return redirect(url_for('showCategory', category_name=category_name))
-    else:
-        categories = session.query(Category).order_by(asc(Category.name))
-        return render_template('delete_item.html', item=itemToDelete, categories=categories)
+    try:
+        itemToDelete = session.query(CatalogItem).filter(and_(CatalogItem.name==item_name, CatalogItem.category_name==category_name)).one()
+        if request.method == 'POST':
+            session.delete(itemToDelete)
+            session.commit()
+            return redirect(url_for('showCategory', category_name=category_name))
+        else:
+            categories = session.query(Category).order_by(asc(Category.name))
+            return render_template('delete_item.html', item=itemToDelete, categories=categories)
+    except:
+        return render_template('page_not_found.html')
+
+@app.errorhandler(404)
+def pageNotFound(error):
+    return render_template('page_not_found.html'), 404
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

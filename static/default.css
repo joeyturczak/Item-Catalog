@@ -80,6 +80,19 @@ a {
   height: 200px;
 }
 
+.not-found {
+  margin: 0 auto;
+  width: 600px;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #e0e0e0;
+  height: 200px;
+}
+
+.return-link {
+  color: blue;
+}
+
 .form-actions {
   margin-top: 24px;
 }
