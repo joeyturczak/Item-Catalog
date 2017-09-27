@@ -60,6 +60,15 @@ a {
   height: 100%;
 }
 
+.item-catalog .item-list {
+  width: 100%;
+}
+
+.item-catalog .mdc-permanent-drawer__content {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
 .item-container {
   background-color: #e0e0e0;
   height: 200px;

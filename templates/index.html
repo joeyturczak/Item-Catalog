@@ -27,26 +27,28 @@
     </div>
   </nav>
   <!-- Main content -->
-  <main class="mdc-permanent-drawer__content mdc-theme--primary">
-    <div class="mdc-layout-grid">
-      <div class="mdc-layout-grid__inner">
-        <h2 class="mdc-typography--display2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h2>
-        {% if not items %}
-          <h3 class="mdc-typography--body2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">There are no items in this category</h3>
-        {% endif %}
-        <!-- Display items from database -->
-        {% for item in items %}
-          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
-            <div class="mdc-card">
-              <section class="mdc-card__primary mdc-theme--primary-dark-bg">
-                <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
-                  <h3 class="mdc-card__title mdc-card__title--large mdc-typography--title">{{ item.name }}</h3>
-                </a>
-                <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
-              </section>
+  <main class="item-list mdc-theme--primary">
+    <div class="mdc-permanent-drawer__content">
+      <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+          <h2 class="mdc-typography--display2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">{{ list_title }}</h2>
+          {% if not items %}
+            <h3 class="mdc-typography--body2 mdc-layout-grid__cell mdc-layout-grid__cell--span-12">There are no items in this category</h3>
+          {% endif %}
+          <!-- Display items from database -->
+          {% for item in items %}
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+              <div class="mdc-card">
+                <section class="mdc-card__primary mdc-theme--primary-dark-bg">
+                  <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
+                    <h3 class="mdc-card__title mdc-card__title--large mdc-typography--title">{{ item.name }}</h3>
+                  </a>
+                  <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
+                </section>
+              </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     </div>
     <!-- New item button -->
