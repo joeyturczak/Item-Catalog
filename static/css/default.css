@@ -88,6 +88,10 @@ a {
   max-width: 600px;
 }
 
+.mdc-card:hover {
+  box-shadow: none;
+}
+
 .mdc-card__primary .mdc-card__title, .mdc-card__subtitle {
   color: #fff;
 }
