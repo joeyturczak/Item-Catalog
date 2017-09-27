@@ -42,8 +42,8 @@
                 <section class="mdc-card__primary mdc-theme--primary-dark-bg">
                   <a href="{{url_for('showItem', category_name=item.category_name, item_name=item.name)}}">
                     <h3 class="mdc-card__title mdc-card__title--large mdc-typography--title">{{ item.name }}</h3>
+                    <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
                   </a>
-                  <h4 class="mdc-card__subtitle mdc-typography--subheading1">{{ item.category_name }}</h4>
                 </section>
               </div>
             </div>
