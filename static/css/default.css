@@ -57,6 +57,11 @@ a {
   padding-right: 8px;
 }
 
+.signin-button {
+  background-color: inherit;
+  border: 0;
+}
+
 /* Content */
 
 .app-fab--absolute {

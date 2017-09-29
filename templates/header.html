@@ -9,24 +9,25 @@
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
       <!-- Login button -->
       {% if public %}
-        {% include "sign_in_button.html" %}
+        <button class="signin-button" onclick="toggleProgress()">
+          {% include "sign_in_button.html" %}
+        </button>
       {% else %}
-        <button class="mdc-button logout-button" onclick="location.href='{{url_for('gdisconnect')}}'">Logout</button>
+        <button class="mdc-button logout-button" onclick="location.href='{{url_for('gdisconnect')}}'">Sign Out</button>
       {% endif %}
     </section>
   </div>
-  <!-- <div class="mdc-toolbar__row progress-bar-row"> -->
-    <figure id="progress-bar">
-      <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate">
-        <div class="mdc-linear-progress__buffering-dots"></div>
-        <div class="mdc-linear-progress__buffer"></div>
-        <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-          <span class="mdc-linear-progress__bar-inner"></span>
-        </div>
-        <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-          <span class="mdc-linear-progress__bar-inner"></span>
-        </div>
+  <!-- Progress bar for login -->
+  <figure id="progress-bar">
+    <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate">
+      <div class="mdc-linear-progress__buffering-dots"></div>
+      <div class="mdc-linear-progress__buffer"></div>
+      <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+        <span class="mdc-linear-progress__bar-inner"></span>
       </div>
-    </figure>
-  <!-- </div> -->
+      <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+        <span class="mdc-linear-progress__bar-inner"></span>
+      </div>
+    </div>
+  </figure>
 </header>
