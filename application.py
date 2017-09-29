@@ -259,13 +259,14 @@ def showItem(category_name, item_name):
             CatalogItem.category_name == category_name)).one()
         creator = getUserInfo(item.user_id)
         if 'username' not in login_session:
-            return render_template('item.html', item=item, public=True)
+            return render_template('item.html', item=item, public=True,
+                                   STATE=getStateToken())
         elif creator.id != login_session['user_id']:
             return render_template('item.html', item=item, public=False,
-                                   creator=False)
+                                   creator=False, STATE=getStateToken())
         else:
             return render_template('item.html', item=item, public=False,
-                                   creator=True)
+                                   creator=True, STATE=getStateToken())
     except:
         return render_template('page_not_found.html')
 
