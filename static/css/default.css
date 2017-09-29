@@ -45,6 +45,18 @@ a {
   color: #fff;
 }
 
+#progress-bar {
+  display: none;
+  margin: 0;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+}
+
+#signinButton {
+  padding-right: 8px;
+}
+
 /* Content */
 
 .app-fab--absolute {
