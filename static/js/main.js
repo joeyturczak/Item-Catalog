@@ -1,6 +1,6 @@
 // Source: Udacity's Authentication and Authorization course
 function signInCallback(authResult) {
-  toggleProgress();
+  toggleProgress(true);
   if(authResult['code']) {
     // Hide the sign-in button now that the user is authorized
     $('signinButton').attr('style', 'display:none');
@@ -14,7 +14,7 @@ function signInCallback(authResult) {
       contentType: 'application/octect-stream; charset=utf-8',
       data: authResult['code'],
       success: function(result) {
-        toggleProgress();
+        toggleProgress(false);
         if(result) {
           $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
           setTimeout(function() {
@@ -26,16 +26,20 @@ function signInCallback(authResult) {
       }
     });
   } else {
-    toggleProgress();
+    toggleProgress(false);
     $('#result').html('Failed to make a server-side call. Check your configuration and console.');
   }
 }
 
-function toggleProgress() {
+function toggleProgress(toggle) {
   var progressBar = document.getElementById('progress-bar');
-  if (progressBar.style.display === 'none') {
-    progressBar.style.display = 'block';
+  if(toggle) {
+    // if (progressBar.style.display === 'none') {
+      progressBar.style.display = 'block';
+    // }
   } else {
-    progressBar.style.display = 'none';
+    // if (progressBar.style.display === 'block') {
+      progressBar.style.display = 'none';
+    // }
   }
 }
